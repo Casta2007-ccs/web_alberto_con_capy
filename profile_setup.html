@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Completar Perfil - Scout & Connect</title>
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            overflow-y: auto !important;
+        }
+
+        .profile-setup-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at top right, #1a202c 0%, var(--bg-dark) 100%);
+            padding: 40px 20px;
+        }
+
+        .setup-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 800px;
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .setup-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .setup-header h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            background: var(--gradient-ai);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .setup-header p {
+            color: var(--text-muted);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .form-control {
+            width: 100%;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: var(--text-main);
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(92, 98, 236, 0.1);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .checkbox-group input {
+            transform: scale(1.2);
+            accent-color: var(--primary);
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            background: var(--gradient-ai);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 32px;
+            cursor: pointer;
+            transition: transform 0.2s, filter 0.2s;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="profile-setup-container">
+        <div class="setup-card">
+            <div class="setup-header">
+                <h1>Completa tu Perfil</h1>
+                <p>Necesitamos algunos detalles para conectarte con las mejores oportunidades.</p>
+            </div>
+
+            <form id="profileForm">
+                <div class="form-grid">
+                    <!-- Display Name -->
+                    <div class="form-group full-width">
+                        <label>Nombre Público (Display Name)</label>
+                        <input type="text" name="display_name" class="form-control" placeholder="Ej. Ana García"
+                            required>
+                    </div>
+
+                    <!-- Role & Island -->
+                    <div class="form-group">
+                        <label>Rol Principal</label>
+                        <select name="main_role" class="form-control" required>
+                            <option value="">Selecciona...</option>
+                            <option value="Actor">Actor/Actriz</option>
+                            <option value="Model">Modelo</option>
+                            <option value="Extra">Figurante (Extra)</option>
+                            <option value="Commercial">Comercial</option>
+                            <option value="Musician">Músico</option>
+                            <option value="Dancer">Bailarín</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Isla de Residencia</label>
+                        <select name="island" class="form-control" required>
+                            <option value="">Selecciona...</option>
+                            <option value="Tenerife">Tenerife</option>
+                            <option value="Gran Canaria">Gran Canaria</option>
+                            <option value="Lanzarote">Lanzarote</option>
+                            <option value="Fuerteventura">Fuerteventura</option>
+                            <option value="La Palma">La Palma</option>
+                            <option value="La Gomera">La Gomera</option>
+                            <option value="El Hierro">El Hierro</option>
+                        </select>
+                    </div>
+
+                    <!-- Physical Attributes -->
+                    <div class="form-group">
+                        <label>Edad Aparente</label>
+                        <input type="number" name="apparent_age" class="form-control" min="0" max="120"
+                            placeholder="Ej. 25">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Altura (cm)</label>
+                        <input type="number" name="height_cm" class="form-control" min="50" max="250"
+                            placeholder="Ej. 175">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Género</label>
+                        <select name="gender" class="form-control">
+                            <option value="Male">Masculino</option>
+                            <option value="Female">Femenino</option>
+                            <option value="Non-binary">No binario</option>
+                            <option value="Other">Otro</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Etnia</label>
+                        <input type="text" name="ethnicity" class="form-control"
+                            placeholder="Ej. Latino, Mediterráneo...">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tipo de Cuerpo</label>
+                        <select name="body_type" class="form-control">
+                            <option value="Slim">Delgado</option>
+                            <option value="Athletic">Atlético</option>
+                            <option value="Curvy">Curvy</option>
+                            <option value="Muscular">Musculoso</option>
+                            <option value="Plus Size">Plus Size</option>
+                            <option value="Average">Medio</option>
+                        </select>
+                    </div>
+
+                    <!-- Hair & Eyes -->
+                    <div class="form-group">
+                        <label>Color de Ojos</label>
+                        <input type="text" name="eye_color" class="form-control" placeholder="Ej. Marrones, Verdes">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Color de Pelo</label>
+                        <input type="text" name="hair_color" class="form-control" placeholder="Ej. Moreno, Rubio">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Largo del Pelo</label>
+                        <select name="hair_length" class="form-control">
+                            <option value="Short">Corto</option>
+                            <option value="Medium">Medio</option>
+                            <option value="Long">Largo</option>
+                            <option value="Bald">Calvo</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tipo de Pelo</label>
+                        <select name="hair_type" class="form-control">
+                            <option value="Straight">Liso</option>
+                            <option value="Wavy">Ondulado</option>
+                            <option value="Curly">Rizado</option>
+                            <option value="Coily">Afro</option>
+                        </select>
+                    </div>
+
+                    <!-- Bio -->
+                    <div class="form-group full-width">
+                        <label>Biografía Corta</label>
+                        <textarea name="bio" class="form-control" rows="3"
+                            placeholder="Cuéntanos un poco sobre ti y tu experiencia..."></textarea>
+                    </div>
+
+                    <!-- Checkboxes -->
+                    <label class="checkbox-group">
+                        <input type="checkbox" name="has_driving_license">
+                        <span>Permiso de Conducir</span>
+                    </label>
+
+                    <label class="checkbox-group">
+                        <input type="checkbox" name="has_passport">
+                        <span>Pasaporte en regla</span>
+                    </label>
+
+                    <label class="checkbox-group full-width">
+                        <input type="checkbox" name="travel_between_islands">
+                        <span>Disponibilidad para viajar entre islas</span>
+                    </label>
+
+                </div>
+
+                <input type="hidden" name="user_id" id="userIdField">
+
+                <button type="submit" class="btn-submit">
+                    Guardar Perfil <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- API Service -->
+    <script src="api.js"></script>
+
+    <script>
+        // Check authentication
+        if (!ApiService.Auth.isAuthenticated()) {
+            window.location.href = 'login.html';
+        }
+
+        const user = ApiService.Auth.getCurrentUser();
+        if (user) {
+            document.querySelector('input[name="display_name"]').value = user.name || '';
+            document.getElementById('userIdField').value = user.id || 'temp-id-' + Date.now();
+        }
+
+        document.getElementById('profileForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.querySelector('.btn-submit');
+            const originalText = btn.innerHTML;
+
+            // Collect form data
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+
+            // Handle checkboxes (fix for unchecked checkboxes not appearing in FormData)
+            data.has_driving_license = formData.get('has_driving_license') === 'on';
+            data.has_passport = formData.get('has_passport') === 'on';
+            data.travel_between_islands = formData.get('travel_between_islands') === 'on';
+
+            // Convert numbers
+            if (data.apparent_age) data.apparent_age = parseInt(data.apparent_age);
+            if (data.height_cm) data.height_cm = parseInt(data.height_cm);
+
+            try {
+                btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Guardando...';
+                btn.disabled = true;
+
+                await ApiService.Profile.create(data);
+
+                // Success redirection
+                window.location.href = 'index.html';
+            } catch (error) {
+                console.error(error);
+                alert("Hubo un error al guardar el perfil.");
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        });
+    </script>
+</body>
+
+</html>

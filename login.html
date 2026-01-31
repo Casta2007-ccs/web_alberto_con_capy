@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Scout & Connect</title>
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="login-page-body">
+
+
+    <div class="login-card-wrapper" id="authCard">
+        <div class="login-brand">
+            <img src="logo.png" alt="Logo"
+                style="height: 48px; width: auto; margin-right: 12px; vertical-align: middle;">
+            <span>Scout & <span class="highlight" style="color: var(--primary);">Connect</span></span>
+        </div>
+
+        <!-- LOGIN VIEW -->
+        <div id="loginView">
+            <p class="login-tagline">Explorar y conectar</p>
+
+            <form class="login-form" id="loginForm">
+                <div class="form-group">
+                    <label for="email">Correo Electrónico</label>
+                    <div class="search-input-wrapper" style="margin:0;">
+                        <i class="fa-regular fa-envelope ai-icon"
+                            style="left: 16px; font-size: 16px; color: var(--text-muted);"></i>
+                        <input type="email" id="email" placeholder="ejemplo@agencia.com" required
+                            style="padding-left: 44px;">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Contraseña</label>
+                    <div class="search-input-wrapper" style="margin:0;">
+                        <i class="fa-solid fa-lock ai-icon"
+                            style="left: 16px; font-size: 16px; color: var(--text-muted);"></i>
+                        <input type="password" id="password" placeholder="••••••••" required
+                            style="padding-left: 44px;">
+                        <button type="button" class="password-toggle" onclick="togglePassword('password')">
+                            <i class="fa-regular fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="login-options">
+                    <label class="remember-me">
+                        <input type="checkbox" checked> Recordarme
+                    </label>
+                    <a href="#" class="forgot-password" onclick="toggleView('recoverView')">¿Has olvidado tu
+                        contraseña?</a>
+                </div>
+
+                <button type="submit" class="btn-login-full">
+                    <span>Iniciar Sesión</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </form>
+
+            <div class="divider-text">o continuar con</div>
+
+            <button type="button" class="btn-guest" id="guestBtn">
+                <i class="fa-solid fa-user-secret"></i> Entrar como Invitado
+            </button>
+
+            <div class="login-card-footer">
+                ¿No tienes una cuenta? <a href="#" onclick="toggleAuthMode(true)">Crear cuenta</a>
+            </div>
+        </div>
+
+        <!-- REGISTER VIEW (Initially Hidden) -->
+        <div id="registerView" style="display: none;">
+            <p class="login-tagline">Únete a la red líder de talento en Canarias</p>
+
+            <form class="login-form" id="registerForm">
+                <div class="form-group">
+                    <label for="reg-name">Nombre Completo</label>
+                    <div class="search-input-wrapper" style="margin:0;">
+                        <i class="fa-regular fa-user ai-icon"
+                            style="left: 16px; font-size: 16px; color: var(--text-muted);"></i>
+                        <input type="text" id="reg-name" placeholder="Tu nombre y apellido" required
+                            style="padding-left: 44px;">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-email">Correo Corporativo</label>
+                    <div class="search-input-wrapper" style="margin:0;">
+                        <i class="fa-regular fa-envelope ai-icon"
+                            style="left: 16px; font-size: 16px; color: var(--text-muted);"></i>
+                        <input type="email" id="reg-email" placeholder="nombre@mail.com" required
+                            style="padding-left: 44px;">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-pass">Contraseña</label>
+                    <div class="search-input-wrapper" style="margin:0;">
+                        <i class="fa-solid fa-lock ai-icon"
+                            style="left: 16px; font-size: 16px; color: var(--text-muted);"></i>
+                        <input type="password" id="reg-pass" placeholder="Mínimo 8 caracteres" required
+                            style="padding-left: 44px; margin-bottom: 0;">
+                        <button type="button" class="password-toggle" onclick="togglePassword('reg-pass')">
+                            <i class="fa-regular fa-eye"></i>
+                        </button>
+                    </div>
+                    <!-- Password Strength Meter -->
+                    <div class="strength-meter">
+                        <div class="strength-bar" id="strength-bar"></div>
+                    </div>
+                    <div class="strength-text">
+                        <span>Seguridad: <span id="strength-label">Débil</span></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-pass-confirm">Confirmar Contraseña</label>
+                    <div class="search-input-wrapper" style="margin:0;">
+                        <i class="fa-solid fa-check-double ai-icon"
+                            style="left: 16px; font-size: 16px; color: var(--text-muted);"></i>
+                        <input type="password" id="reg-pass-confirm" placeholder="Repite la contraseña" required
+                            style="padding-left: 44px;">
+                        <button type="button" class="password-toggle" onclick="togglePassword('reg-pass-confirm')">
+                            <i class="fa-regular fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-login-full">
+                    <span>Crear Cuenta</span>
+                    <i class="fa-solid fa-user-plus"></i>
+                </button>
+            </form>
+
+            <div class="login-card-footer">
+                ¿Ya tienes cuenta? <a href="#" onclick="toggleAuthMode(false)">Iniciar Sesión</a>
+            </div>
+        </div>
+
+        <!-- RECOVER VIEW (Initially Hidden) -->
+        <div id="recoverView" style="display: none;">
+            <p class="login-tagline">Recuperar Acceso</p>
+            <p style="color: var(--text-muted); text-align: center; font-size: 0.9rem; margin-bottom: 24px;">
+                Introduce tu correo electrónico y te enviaremos las instrucciones para restablecer tu contraseña.
+            </p>
+
+            <form class="login-form" id="recoverForm">
+                <div class="form-group">
+                    <label for="rec-email">Correo Registrado</label>
+                    <div class="search-input-wrapper" style="margin:0;">
+                        <i class="fa-regular fa-envelope ai-icon"
+                            style="left: 16px; font-size: 16px; color: var(--text-muted);"></i>
+                        <input type="email" id="rec-email" placeholder="nombre@ejemplo.com" required
+                            style="padding-left: 44px;">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-login-full">
+                    <span>Enviar Enlace</span>
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </form>
+
+            <div class="login-card-footer">
+                <a href="#" onclick="toggleView('loginView')">Volver a Iniciar Sesión</a>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- API Service Layer -->
+    <script src="api.js"></script>
+
+    <script>
+        const views = {
+            loginView: document.getElementById('loginView'),
+            registerView: document.getElementById('registerView'),
+            recoverView: document.getElementById('recoverView')
+        };
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const recoverForm = document.getElementById('recoverForm');
+        const guestBtn = document.getElementById('guestBtn');
+
+        function toggleView(targetId) {
+            // Find current visible view
+            let currentId = null;
+            for (const id in views) {
+                if (views[id].style.display !== 'none') {
+                    currentId = id;
+                    break;
+                }
+            }
+
+            if (currentId === targetId) return;
+
+            const current = views[currentId];
+            const next = views[targetId];
+
+            if (current) {
+                current.style.opacity = '0';
+                setTimeout(() => {
+                    current.style.display = 'none';
+                    next.style.display = 'block';
+                    void next.offsetWidth; // Trigger reflow
+                    next.style.opacity = '1';
+                }, 300);
+            } else {
+                next.style.display = 'block';
+                next.style.opacity = '1';
+            }
+        }
+
+        // Helper specifically for the simple Login <-> Register toggle links
+        function toggleAuthMode(toRegister) {
+            toggleView(toRegister ? 'registerView' : 'loginView');
+        }
+
+        // Initialize Transitions
+        Object.values(views).forEach(el => {
+            if (el) {
+                el.style.transition = 'opacity 0.3s ease';
+                if (el.id !== 'loginView') {
+                    el.style.display = 'none';
+                    el.style.opacity = '0';
+                }
+            }
+        });
+
+        // --- Password Toggle Logic ---
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const icon = input.nextElementSibling.querySelector('i');
+
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = "password";
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        // --- Password Strength Logic ---
+        const passInput = document.getElementById('reg-pass');
+        const strengthBar = document.getElementById('strength-bar');
+        const strengthLabel = document.getElementById('strength-label');
+
+        passInput.addEventListener('input', function () {
+            const val = this.value;
+            let strength = 0;
+
+            if (val.length > 5) strength += 1;
+            if (val.length > 8) strength += 1;
+            if (/[A-Z]/.test(val)) strength += 1;
+            if (/[0-9]/.test(val)) strength += 1;
+            if (/[^A-Za-z0-9]/.test(val)) strength += 1;
+
+            let width = '0%';
+            let color = '#ccc';
+            let label = 'Muy débil';
+
+            if (val.length === 0) {
+                width = '0%';
+                label = '';
+            } else if (strength < 2) {
+                width = '33%';
+                color = '#ef4444'; // Weak
+                label = 'Débil';
+            } else if (strength < 4) {
+                width = '66%';
+                color = '#f59e0b'; // Medium
+                label = 'Media';
+            } else {
+                width = '100%';
+                color = '#10b981'; // Strong
+                label = 'Fuerte';
+            }
+
+            strengthBar.style.width = width;
+            strengthBar.style.backgroundColor = color;
+            strengthLabel.textContent = label;
+            strengthLabel.style.color = color;
+        });
+
+        // LOGIN SUBMIT
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const btn = loginForm.querySelector('button');
+            const originalText = btn.innerHTML;
+
+            if (email && password) {
+                // UI Loading
+                btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Conectando...';
+                btn.disabled = true;
+                btn.style.opacity = '0.7';
+
+                try {
+                    const user = await ApiService.Auth.login(email, password);
+                    if (user.hasProfile) {
+                        window.location.href = 'index.html';
+                    } else {
+                        window.location.href = 'profile_setup.html';
+                    }
+                } catch (error) {
+                    alert(error.message || "Error al iniciar sesión");
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    btn.style.opacity = '1';
+                }
+            }
+        });
+
+        // REGISTER SUBMIT
+        registerForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('reg-name').value;
+            const email = document.getElementById('reg-email').value;
+            const pass = document.getElementById('reg-pass').value;
+            const confirm = document.getElementById('reg-pass-confirm').value;
+
+            if (pass !== confirm) {
+                alert("Las contraseñas no coinciden");
+                return;
+            }
+
+            const btn = registerForm.querySelector('button');
+            const originalText = btn.innerHTML;
+
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Registrando...';
+            btn.disabled = true;
+
+            try {
+                await ApiService.Auth.register({ name, email, password: pass });
+                window.location.href = 'profile_setup.html';
+            } catch (error) {
+                alert("Error: " + error.message);
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        });
+
+        // RECOVER SUBMIT
+        recoverForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = recoverForm.querySelector('button');
+            const originalContent = btn.innerHTML;
+
+            const email = document.getElementById('rec-email').value;
+
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Enviando...';
+            btn.disabled = true;
+
+            await ApiService.Auth.recoverPassword(email);
+
+            alert('¡Enlace enviado! Revisa tu bandeja de entrada.');
+            btn.innerHTML = '<i class="fa-solid fa-check"></i> Enviado';
+
+            setTimeout(() => {
+                toggleView('loginView');
+                btn.innerHTML = originalContent;
+                btn.disabled = false;
+                document.getElementById('rec-email').value = '';
+            }, 1000);
+        });
+
+        // GUEST LOGIN
+        guestBtn.addEventListener('click', async () => {
+            guestBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Entrando...';
+            await ApiService.Auth.loginAsGuest();
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+
+
+</html>

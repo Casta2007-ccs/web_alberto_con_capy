@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scout & Connect | Dashboard</title>
+    <!-- Google Fonts: Outfit (Modern Sans Serif) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="app-container">
+        <!-- 
+            SIDEBAR NAVIGATION 
+            Contains the app logo, main navigation links, and user profile.
+            Each link uses 'data-view' to trigger the SPA navigation logic in script.js.
+        -->
+        <aside class="sidebar">
+            <div class="logo-container">
+                <img src="logo.png" alt="Logo" style="height: 32px; width: auto; margin-right: 10px;">
+                <span>Scout & <span class="highlight">Connect</span></span>
+            </div>
+
+            <nav class="nav-menu">
+                <!-- Primary Navigation Group -->
+                <div class="nav-section">
+                    <p class="nav-label">MENU PRINCIPAL</p>
+                    <ul>
+                        <li class="active" data-view="discovery">
+                            <a href="#"><i class="fa-solid fa-bolt"></i> Discovery AI</a>
+                        </li>
+                        <li data-view="projects">
+                            <a href="#"><i class="fa-solid fa-briefcase"></i> Mis Proyectos</a>
+                        </li>
+                        <li data-view="favorites">
+                            <a href="#"><i class="fa-regular fa-bookmark"></i> Favoritos</a>
+                        </li>
+                        <li data-view="messages">
+                            <a href="#"><i class="fa-regular fa-message"></i> Mensajes</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Administration & Settings Group -->
+                <div class="nav-section">
+                    <p class="nav-label">ADMINISTRACIÓN</p>
+                    <ul>
+                        <li data-view="stats"><a href="#"><i class="fa-solid fa-chart-pie"></i> Estadísticas</a></li>
+                        <li data-view="admin"><a href="#"><i class="fa-solid fa-users-gear"></i> Gestión de Talento</a>
+                        </li>
+                        <li data-view="settings"><a href="#"><i class="fa-solid fa-gear"></i> Configuración</a></li>
+                        <li id="logout-link"><a href="#" style="color: #ff6b6b; margin-top: 12px;"><i
+                                    class="fa-solid fa-arrow-right-from-bracket"></i> Cerrar Sesión</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Sidebar Footer: Current User -->
+            <div class="user-profile">
+                <img src="https://ui-avatars.com/api/?name=Director+Casting&background=333&color=fff" alt="User">
+                <div class="user-info">
+                    <h4>Ana García</h4>
+                    <p>Directora de Casting</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- 
+            MAIN CONTENT AREA 
+            Contains different "Views" that are shown/hidden based on navigation.
+        -->
+        <main class="main-content">
+
+            <!-- VIEW: DISCOVERY (Default Home View) -->
+            <div id="view-discovery" class="view-section active">
+                <header class="top-header">
+                    <div class="header-titles">
+                        <h1>Búsqueda de Talento</h1>
+                        <p>Encuentra el perfil perfecto usando Inteligencia Artificial</p>
+                    </div>
+                    <div class="notification-area">
+                        <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge">3</span></button>
+                        <!-- Dropdown -->
+                        <div class="notification-dropdown">
+                            <div class="notification-header">Notificaciones</div>
+                            <div class="notification-list">
+                                <div class="notification-item">
+                                    <div class="notif-icon"><i class="fa-solid fa-bolt"></i></div>
+                                    <div class="notif-content">
+                                        <p>Nuevo match del 98% para "Campaña Verano"</p>
+                                        <span class="notif-time">Hace 5 min</span>
+                                    </div>
+                                </div>
+                                <div class="notification-item">
+                                    <div class="notif-icon"><i class="fa-regular fa-message"></i></div>
+                                    <div class="notif-content">
+                                        <p>Elena R. ha respondido a tu mensaje</p>
+                                        <span class="notif-time">Hace 1 hora</span>
+                                    </div>
+                                </div>
+                                <div class="notification-item">
+                                    <div class="notif-icon"><i class="fa-solid fa-check"></i></div>
+                                    <div class="notif-content">
+                                        <p>Tu proyecto "Volcán" ha sido aprobado</p>
+                                        <span class="notif-time">Hace 3 horas</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <section class="search-section">
+                    <!-- AI Semantic Search Input -->
+                    <div class="ai-search-box">
+                        <div class="search-input-wrapper">
+                            <i class="fa-solid fa-wand-magic-sparkles ai-icon"></i>
+                            <input type="text" id="semantic-search"
+                                placeholder="Describe lo que buscas... Ej: 'Mujer estilo mediterráneo para anuncio de playa al atardecer en Tenerife'">
+                            <button class="search-btn">Buscar</button>
+                        </div>
+                    </div>
+
+                    <!-- Filters Toolbar -->
+                    <div class="filters-bar">
+                        <div class="filter-group">
+                            <label><i class="fa-solid fa-location-dot"></i> Isla</label>
+                            <select id="island-filter">
+                                <option value="all">Todas las Islas</option>
+                                <option value="Tenerife">Tenerife</option>
+                                <option value="Gran Canaria">Gran Canaria</option>
+                                <option value="Lanzarote">Lanzarote</option>
+                                <option value="Fuerteventura">Fuerteventura</option>
+                                <option value="La Palma">La Palma</option>
+                                <option value="La Gomera">La Gomera</option>
+                                <option value="El Hierro">El Hierro</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label><i class="fa-solid fa-layer-group"></i> Categoría</label>
+                            <select id="category-filter">
+                                <option value="all">Todas</option>
+                                <option value="Model">Alta Moda</option>
+                                <option value="Commercial">Publicidad</option>
+                                <option value="Actor">Actores</option>
+                                <option value="Extra">Figuración / Extras</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label><i class="fa-solid fa-camera"></i> Calidad IMG</label>
+                            <select>
+                                <option>Cualquiera</option>
+                                <option>HD Studio</option>
+                                <option>Polaroid</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label><i class="fa-solid fa-arrow-up-wide-short"></i> Ordenar</label>
+                            <select id="sort-filter">
+                                <option value="match">Match (Alto-Bajo)</option>
+                                <option value="match-asc">Match (Bajo-Alto)</option>
+                                <option value="name">Nombre (A-Z)</option>
+                            </select>
+                        </div>
+
+                        <button id="reset-filters-btn" class="secondary-btn"
+                            style="height: 42px; margin-top: auto; border:none; color: var(--text-muted); padding: 0 12px;">
+                            <i class="fa-solid fa-xmark"></i> Limpiar
+                        </button>
+
+                        <div class="active-tags" id="ai-tags"></div>
+                    </div>
+                </section>
+
+                <section class="results-area">
+                    <div class="results-header">
+                        <h3>Resultados (<span id="result-count">0</span>)</h3>
+                        <div class="view-options">
+                            <button class="active"><i class="fa-solid fa-border-all"></i></button>
+                            <button><i class="fa-solid fa-list"></i></button>
+                        </div>
+                    </div>
+                    <!-- Cards are injected here by JS -->
+                    <div class="talent-grid" id="talent-grid"></div>
+                </section>
+            </div>
+
+            <!-- VIEW: PROJECTS -->
+            <div id="view-projects" class="view-section" style="display: none;">
+                <header class="top-header">
+                    <div class="header-titles">
+                        <h1>Mis Proyectos</h1>
+                        <p>Gestiona tus castings activos y selecciones</p>
+                    </div>
+                    <button class="primary-btn"><i class="fa-solid fa-plus"></i> Nuevo Proyecto</button>
+                </header>
+                <div class="projects-grid">
+                    <!-- Static Demo Cards -->
+                    <div class="project-card">
+                        <div class="project-icon"><i class="fa-solid fa-umbrella-beach"></i></div>
+                        <div class="project-info">
+                            <h3>Campaña Verano 2026</h3>
+                            <p>Turismo de Canarias</p>
+                            <span class="project-meta">12 Candidatos • Actualizado hace 2h</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right arrow"></i>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-icon" style="background: rgba(16, 185, 129, 0.1); color: #10b981;"><i
+                                class="fa-solid fa-film"></i></div>
+                        <div class="project-info">
+                            <h3>Serie "Volcán" - Extras</h3>
+                            <p>Netflix Production</p>
+                            <span class="project-meta">154 Candidatos • Actualizado hace 5h</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right arrow"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW: FAVORITES -->
+            <div id="view-favorites" class="view-section" style="display: none;">
+                <header class="top-header">
+                    <div class="header-titles">
+                        <h1>Favoritos</h1>
+                        <p>Talentos guardados para futuras referencias</p>
+                    </div>
+                </header>
+                <div class="talent-grid" id="favorites-grid">
+                    <div class="empty-state">
+                        <i class="fa-regular fa-bookmark"></i>
+                        <p>No tienes favoritos aún</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW: MESSAGES -->
+            <div id="view-messages" class="view-section" style="display: none;">
+                <header class="top-header">
+                    <div class="header-titles">
+                        <h1>Mensajes</h1>
+                        <p>Comunicaciones con agencias y talento</p>
+                    </div>
+                </header>
+                <div class="chat-layout">
+                    <div class="chat-list">
+                        <div class="chat-item active">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=100"
+                                alt="User">
+                            <div class="chat-summ">
+                                <h5>Elena R.</h5>
+                                <p>Disponible para el shooting del...</p>
+                            </div>
+                            <span class="chat-time">10:42</span>
+                        </div>
+                        <div class="chat-item">
+                            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=100"
+                                alt="User">
+                            <div class="chat-summ">
+                                <h5>Javier M.</h5>
+                                <p>Gracias por la oportunidad.</p>
+                            </div>
+                            <span class="chat-time">Ayer</span>
+                        </div>
+                    </div>
+                    <div class="chat-window">
+                        <div class="chat-header-inner">
+                            <h4>Elena R.</h4>
+                            <span>En línea</span>
+                        </div>
+                        <div class="chat-messages">
+                            <div class="msg received">
+                                <p>Hola Ana, vi la propuesta para la campaña de verano.</p>
+                            </div>
+                            <div class="msg received">
+                                <p>Estoy disponible en esas fechas. ¿Cuándo sería el casting presencial?</p>
+                            </div>
+                            <div class="msg sent">
+                                <p>Hola Elena! Genial. Estamos organizando todo para el próximo martes en Santa Cruz.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="chat-input-area">
+                            <input type="text" placeholder="Escribe un mensaje...">
+                            <button><i class="fa-solid fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW: STATISTICS (Managed by CSS/HTML only) -->
+            <div id="view-stats" class="view-section" style="display: none;">
+                <header class="top-header">
+                    <div class="header-titles">
+                        <h1>Estadísticas</h1>
+                        <p>Métricas de rendimiento y distribución de talento</p>
+                    </div>
+                </header>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-label">Total Candidatos</span>
+                        <span class="stat-value" id="stat-total-candidates">1,254</span>
+                        <span class="stat-trend positive" id="trend-candidates"><i class="fa-solid fa-arrow-up"></i>
+                            +12% este mes</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Proyectos Activos</span>
+                        <span class="stat-value" id="stat-active-projects">8</span>
+                        <span class="stat-trend neutral" id="trend-projects"><i class="fa-solid fa-minus"></i> En
+                            curso</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Tasa de Éxito</span>
+                        <span class="stat-value" id="stat-success-rate">85%</span>
+                        <span class="stat-trend positive" id="trend-success"><i class="fa-solid fa-arrow-up"></i> Alta
+                            eficiencia</span>
+                    </div>
+                </div>
+
+                <div class="chart-section">
+                    <h3>Distribución por Isla</h3>
+                    <div class="chart-container">
+                        <div class="chart-row">
+                            <span class="chart-label">Tenerife</span>
+                            <div class="chart-bar-bg">
+                                <div class="chart-bar-fill" id="bar-tenerife" style="width: 80%; background: #5c62ec;">
+                                </div>
+                            </div>
+                            <span class="chart-val" id="val-tenerife">450</span>
+                        </div>
+                        <div class="chart-row">
+                            <span class="chart-label">Gran Canaria</span>
+                            <div class="chart-bar-bg">
+                                <div class="chart-bar-fill" id="bar-grancanaria"
+                                    style="width: 65%; background: #00d2ff;"></div>
+                            </div>
+                            <span class="chart-val" id="val-grancanaria">380</span>
+                        </div>
+                        <div class="chart-row">
+                            <span class="chart-label">Lanzarote</span>
+                            <div class="chart-bar-bg">
+                                <div class="chart-bar-fill" id="bar-lanzarote" style="width: 40%; background: #10b981;">
+                                </div>
+                            </div>
+                            <span class="chart-val" id="val-lanzarote">210</span>
+                        </div>
+                        <div class="chart-row">
+                            <span class="chart-label">Fuerteventura</span>
+                            <div class="chart-bar-bg">
+                                <div class="chart-bar-fill" id="bar-fuerteventura"
+                                    style="width: 30%; background: #ff9f43;"></div>
+                            </div>
+                            <span class="chart-val" id="val-fuerteventura">180</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW: ADMIN -->
+            <div id="view-admin" class="view-section" style="display: none;">
+                <header class="top-header">
+                    <div class="header-titles">
+                        <h1>Gestión de Equipo</h1>
+                        <p>Administra accesos y permisos de la plataforma</p>
+                    </div>
+                    <button class="primary-btn"><i class="fa-solid fa-plus"></i> Añadir Usuario</button>
+                </header>
+
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Email</th>
+                                <th>Rol</th>
+                                <th>Estado</th>
+                                <th style="text-align: right;">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="user-avatar-small" style="background: #5c62ec;">M</div>
+                                        <span>Maria Garcia</span>
+                                    </div>
+                                </td>
+                                <td>maria@agency.com</td>
+                                <td><span class="role-badge">Admin</span></td>
+                                <td>
+                                    <span class="status-badge status-active">
+                                        <span class="status-dot"></span> Active
+                                    </span>
+                                </td>
+                                <td style="text-align: right;">
+                                    <button class="action-btn"><i class="fa-regular fa-pen-to-square"></i></button>
+                                    <button class="action-btn delete"><i class="fa-regular fa-trash-can"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="user-avatar-small" style="background: #00d2ff;">J</div>
+                                        <span>Juan Perez</span>
+                                    </div>
+                                </td>
+                                <td>juan@casting.com</td>
+                                <td><span class="role-badge">Recruiter</span></td>
+                                <td>
+                                    <span class="status-badge status-active">
+                                        <span class="status-dot"></span> Active
+                                    </span>
+                                </td>
+                                <td style="text-align: right;">
+                                    <button class="action-btn"><i class="fa-regular fa-pen-to-square"></i></button>
+                                    <button class="action-btn delete"><i class="fa-regular fa-trash-can"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="user-avatar-small" style="background: #ff9f43;">L</div>
+                                        <span>Luisa Lane</span>
+                                    </div>
+                                </td>
+                                <td>luisa@guest.com</td>
+                                <td><span class="role-badge"
+                                        style="color: #ff9f43; background: rgba(255, 159, 67, 0.1);">Guest</span></td>
+                                <td>
+                                    <span class="status-badge status-inactive">
+                                        <span class="status-dot"></span> Inactive
+                                    </span>
+                                </td>
+                                <td style="text-align: right;">
+                                    <button class="action-btn"><i class="fa-regular fa-pen-to-square"></i></button>
+                                    <button class="action-btn delete"><i class="fa-regular fa-trash-can"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- VIEW: SETTINGS -->
+            <div id="view-settings" class="view-section" style="display: none;">
+                <header class="top-header">
+                    <div class="header-titles">
+                        <h1>Configuración</h1>
+                        <p>Preferencias generales de la cuenta</p>
+                    </div>
+                </header>
+
+                <div class="settings-grid">
+                    <div class="setting-card">
+                        <div class="setting-info">
+                            <h3>Notificaciones por Email</h3>
+                            <p>Recibe alertas sobre nuevos candidatos que coincidan</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="setting-card">
+                        <div class="setting-info">
+                            <h3>Modo Oscuro</h3>
+                            <p>Activar la interfaz oscura (por defecto)</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" checked disabled>
+                            <span class="slider" style="cursor: not-allowed; opacity: 0.7;"></span>
+                        </label>
+                    </div>
+
+                    <div class="setting-card">
+                        <div class="setting-info">
+                            <h3>Perfil Público</h3>
+                            <p>Permitir que las agencias encuentren tu perfil</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+        </main>
+    </div>
+
+    <!-- Modal for Quick View / Contact -->
+    <div id="modal-overlay" class="modal-overlay hidden">
+        <div class="modal">
+            <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-content" id="modal-body">
+                <!-- Dynamic Content -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
